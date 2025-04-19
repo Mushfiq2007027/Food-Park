@@ -10,7 +10,7 @@
                              <th>Reservation Id</th>
                              <th>Date/Time</th>
                              <th>Person</th>
-                              <th>Status</th>
+                             <th>Status</th>
 
                          </tr>
                          @foreach ($reservations as $reservation)
@@ -21,11 +21,11 @@
                                  <td>
                                      {{ $reservation->reservation_id }}
                                  </td>
-                                  <td>
+                                 <td>
                                      {{ $reservation->date }} | {{ $reservation->time }}
                                  </td>
 
-                                  <td>
+                                 <td>
                                      {{ $reservation->persons }}
                                  </td>
                                  <td>
@@ -109,17 +109,17 @@
                                          $size = json_decode($item->product_size);
                                          $options = json_decode($item->product_option);
 
-                                           $qty = $item->qty;
-                                            $unitPrice = $item->unit_price;
-                                            $sizePrice = $size ? $size->price : 0;
-                                            $optionPrice = 0;
-                                            if ($options && is_array($options)) {
-                                                foreach ($options as $optionItem) {
-                                                    $optionPrice += $optionItem->price;
-                                                }
-                                            }
+                                         $qty = $item->qty;
+                                         $unitPrice = $item->unit_price;
+                                         $sizePrice = $size ? $size->price : 0;
+                                         $optionPrice = 0;
+                                         if ($options && is_array($options)) {
+                                             foreach ($options as $optionItem) {
+                                                 $optionPrice += $optionItem->price;
+                                             }
+                                         }
 
-                                            $productTotal = ($unitPrice + $sizePrice + $optionPrice) * $qty;
+                                         $productTotal = ($unitPrice + $sizePrice + $optionPrice) * $qty;
                                      @endphp
                                      <tr>
                                          <td class="sl_no">{{ ++$loop->index }}</td>
@@ -155,7 +155,7 @@
                                          <b> - </b>
                                      </td>
                                      <td class="total">
-                                         <b>{{ currencyPosition($order->subtotal)}}</b>
+                                         <b>{{ currencyPosition($order->subtotal) }}</b>
                                      </td>
                                  </tr>
                                  <tr>
@@ -166,7 +166,7 @@
                                          <b></b>
                                      </td>
                                      <td class="total coupon">
-                                         <b>{{ currencyPosition($order->discount)}}</b>
+                                         <b>{{ currencyPosition($order->discount) }}</b>
                                      </td>
                                  </tr>
                                  <tr>
@@ -177,7 +177,7 @@
                                          <b></b>
                                      </td>
                                      <td class="total coast">
-                                         <b>{{ currencyPosition($order->delivery_charge)}}</b>
+                                         <b>{{ currencyPosition($order->delivery_charge) }}</b>
                                      </td>
                                  </tr>
                                  <tr>
@@ -188,14 +188,15 @@
                                          <b></b>
                                      </td>
                                      <td class="total">
-                                         <b>{{ currencyPosition($order->grand_total)}}</b>
+                                         <b>{{ currencyPosition($order->grand_total) }}</b>
                                      </td>
                                  </tr>
                              </tfoot>
                          </table>
                      </div>
                  </div>
-                 <a class="print_btn common_btn d-print-none" href="javascript:;" onclick="printInvoice('{{ $order->id }}')"><i class="far fa-print "></i>
+                 <a class="print_btn common_btn d-print-none" href="javascript:;"
+                     onclick="printInvoice('{{ $order->id }}')"><i class="far fa-print "></i>
                      print
                      PDF</a>
 
@@ -212,22 +213,22 @@
              $(".invoice_details_" + id).fadeIn();
          }
 
-         function printInvoice(id){
-           let printContents = $('.invoice_details_'+id).html();
+         function printInvoice(id) {
+             let printContents = $('.invoice_details_' + id).html();
 
 
-                let printWindow = window.open('', '', 'width=600,height=600');
-                printWindow.document.open();
-                printWindow.document.write('<html>');
-                 printWindow.document.write('<link rel="stylesheet" href="asset("frontend/css/bootstrap.min.css") }}">');
+             let printWindow = window.open('', '', 'width=600,height=600');
+             printWindow.document.open();
+             printWindow.document.write('<html>');
+             printWindow.document.write('<link rel="stylesheet" href="asset("frontend/css/bootstrap.min.css") }}">');
 
-                printWindow.document.write('<body>');
-                printWindow.document.write(printContents);
-                printWindow.document.write('</body></hml>');
-                printWindow.document.close();
+             printWindow.document.write('<body>');
+             printWindow.document.write(printContents);
+             printWindow.document.write('</body></hml>');
+             printWindow.document.close();
 
-                printWindow.print();
-                printWindow.close();
+             printWindow.print();
+             printWindow.close();
          }
      </script>
  @endpush
